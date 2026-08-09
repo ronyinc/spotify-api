@@ -29,3 +29,5 @@ dbt_profiles/.user.yml
 
 # spotify config file
 spotify/config.py
+
+project_notes
