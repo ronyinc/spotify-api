@@ -1,0 +1,31 @@
+# Snowflake private key
+snowflake_keys/
+
+
+# Environment variables
+.env
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+
+# Airflow logs
+logs/
+
+# macOS/Linux
+.DS_Store
+
+# dbt generated
+dbt/target/
+dbt/logs/
+dbt/dbt_packages/
+dbt/state/
+
+# IDE
+.vscode/
+
+dbt_profiles/.user.yml
+
+# spotify config file
+spotify/config.py
