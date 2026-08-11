@@ -1,5 +1,6 @@
 
-from auth.spotify_auth import build_authorization_url, get_access_token, get_access_token_via_refresh_token
+from auth.spotify_auth import build_authorization_url, get_access_token
+from auth.token_manager import get_access_token_via_refresh_token
 from extract.recent_tracks import get_recent_tracks
 from config import REFRESH_TOKEN
 from utils.file_utils import save_json 
