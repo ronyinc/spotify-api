@@ -31,3 +31,4 @@ dbt_profiles/.user.yml
 spotify/config.py
 
 project_notes/
+data/

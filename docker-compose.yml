@@ -63,6 +63,7 @@ services:
       - DBT_PROFILES_DIR=/opt/airflow/dbt_profiles
     ports:
       - "8082:8080"
+      - "8888:8888"
     volumes:
       - ./dags:/opt/airflow/dags
       - ./dbt:/opt/airflow/dbt
