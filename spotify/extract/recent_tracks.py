@@ -1,20 +1,40 @@
 
 import requests
+import json
 from config import BASE_URL
 
 
 def get_recent_tracks(access_token):
 
-    headers = {
-        "Authorization": f"Bearer {access_token}"
-    }
+        headers = {
+            "Authorization": f"Bearer {access_token}"
+        }
 
-    response = requests.get(
-        f"{BASE_URL}/me/player/recently-played",
-        headers=headers,
-        params={"limit": 50},
-    )
+        all_tracks = []
 
-    response.raise_for_status()
+        url = f"{BASE_URL}/me/player/recently-played"
 
-    return response.json()
+        try:
+
+            while url:
+                response = requests.get(
+                url,
+                headers=headers,
+                params={"limit": 10},
+                )
+
+                response.raise_for_status()
+
+                data = json.loads(response.text) # parse json into py dic.
+                all_tracks.extend(data["items"])
+
+                print(f"Fetched {len(data['items'])} records")
+
+                url = data["next"]
+                params = None 
+
+            return all_tracks
+
+        except requests.exceptions.RequestException as e:
+             print(f"Failed to fetch recently played tracks: {e}")
+             raise
