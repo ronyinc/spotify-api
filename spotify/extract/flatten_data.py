@@ -39,5 +39,18 @@ def flatten_recent_tracks():
         raise e          
 
 
+def flatten_saved_tracks():
 
-# print(df[:5])
+    with open("/opt/airflow/spotify/data/user_saved_tracks.json","r") as f:
+        data = json.load(f)
+
+    df = pd.json_normalize(data)
+
+    print("\n")
+    print(df.columns.tolist())
+
+    df['artist_name'] = df["track.artists"].apply(lambda x : ','.join(a["name"] for a in x))
+
+    df_selected = df[["track.id","track.name","track.duration_ms","track.album.id","track.album.name","added_at","track.album.album_type","artist_name","track.album.href","track.album.release_date"]]
+
+    df_selected.to_csv("/opt/airflow/spotify/data/saved_tracks.csv", index=False, encoding="utf-8")    
