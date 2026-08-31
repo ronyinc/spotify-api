@@ -41,16 +41,39 @@ def flatten_recent_tracks():
 
 def flatten_saved_tracks():
 
-    with open("/opt/airflow/spotify/data/user_saved_tracks.json","r") as f:
-        data = json.load(f)
+    try:
 
-    df = pd.json_normalize(data)
+        with open("/opt/airflow/spotify/data/user_saved_tracks.json","r") as f:
+            data = json.load(f)
 
-    print("\n")
-    print(df.columns.tolist())
+        df = pd.json_normalize(data)
 
-    df['artist_name'] = df["track.artists"].apply(lambda x : ','.join(a["name"] for a in x))
+        print("\n")
+        print(df.columns.tolist())
 
-    df_selected = df[["track.id","track.name","track.duration_ms","track.album.id","track.album.name","added_at","track.album.album_type","artist_name","track.album.href","track.album.release_date"]]
+        df['artist_name'] = df["track.artists"].apply(lambda x : ','.join(a["name"] for a in x))
 
-    df_selected.to_csv("/opt/airflow/spotify/data/saved_tracks.csv", index=False, encoding="utf-8")    
+        df['track_spotify_url'] = df["track.artists"].apply(lambda x : ','.join(a["external_urls"]["spotify"] for a in x))
+
+        # logic to generate multiple rows per artist using list comprehension and data frame explode.
+        # df['track_spotify_url'] = df["track.artists"].apply(lambda x : [a["external_urls"]["spotify"] for a in x])
+        # df = df.explode('track_spotify_url').reset_index(drop=True)
+
+
+        df_selected = df[["track.id","track.name","track.duration_ms","track.album.id","track.album.name",
+                        "added_at","track.album.album_type","artist_name","track.album.href",
+                        "track.album.release_date","track_spotify_url"]]
+
+        df_selected.to_csv("/opt/airflow/spotify/data/saved_tracks.csv", index=False, encoding="utf-8")
+
+    except FileNotFoundError as e:
+        print("Inpput file not found")
+        raise e
+
+    except json.JSONDecodeError as e:
+        print("File exists. But containes corrupt json")
+        raise e
+
+    except KeyError as e:
+        print("Key/column value missing from the API response. ")
+        raise e           
