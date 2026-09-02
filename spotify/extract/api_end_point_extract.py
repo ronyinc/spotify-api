@@ -136,6 +136,7 @@ def get_users_top_artists(access_token, param):
 def get_users_top_tracks(access_token, param):
     headers = {"Authorization": f"Bearer {access_token}"}
     session = make_session_with_retries()
+    data_all = []
 
     top_artists_tracks = []
     url = f"{BASE_URL}/me/top/{param}"
@@ -148,6 +149,7 @@ def get_users_top_tracks(access_token, param):
 
             data = response.json()
             top_artists_tracks.extend(data["items"])
+            # data_all.append(data)
 
             print(f"Fetched {len(data['items'])} records")
 
@@ -155,7 +157,7 @@ def get_users_top_tracks(access_token, param):
             params = None
 
         return top_artists_tracks
-
+        
     except requests.exceptions.RequestException as e:
         print(f"Failed to fetch user's top {param}: {e}")
         raise

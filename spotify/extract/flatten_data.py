@@ -76,4 +76,67 @@ def flatten_saved_tracks():
 
     except KeyError as e:
         print("Key/column value missing from the API response. ")
-        raise e           
+        raise e
+
+
+def flatten_user_top_artists():
+
+    try:
+
+        with open("/opt/airflow/spotify/data/user_top_artists.json","r") as f:
+            data = json.load(f)
+
+        df = pd.json_normalize(data)
+
+        print("\n")
+        print(df.columns.tolist())
+
+        df_selected = df[["id","name","type","external_urls.spotify"]].rename(columns={"id":"artist_id","name":"artist_name","external_urls.spotify":"artist_spotify_url"})
+
+        df_selected.to_csv("/opt/airflow/spotify/data/user_top_artists.csv", index=False, encoding="utf-8")
+
+    except FileNotFoundError as e:
+        print("Inpput file not found")
+        raise e
+
+    except json.JSONDecodeError as e:
+        print("File exists. But containes corrupt json")
+        raise e
+
+    except KeyError as e:
+        print("Key/column value missing from the API response. ")
+        raise e    
+
+
+def flatten_user_top_tracks():
+
+    try:
+
+        with open("/opt/airflow/spotify/data/user_top_tracks.json","r") as f:
+            data = json.load(f)
+
+        df = pd.json_normalize(data)
+
+        df['artist_name'] = df["album.artists"].apply(lambda x : ",".join(a["name"] for a in x))
+
+        print("\n")
+        print(df.columns.tolist())
+
+        df_selected = df[["id","name","type","track_number","duration_ms","artist_name","album.album_type",
+        "album.name","album.release_date","album.total_tracks"]].rename(columns={"id":"track_id",
+        "name":"track_name"})
+
+        df_selected.to_csv("/opt/airflow/spotify/data/user_top_tracks.csv", index=False, encoding="utf-8")
+
+    except FileNotFoundError as e:
+        print("Inpput file not found")
+        raise e
+
+    except json.JSONDecodeError as e:
+        print("File exists. But containes corrupt json")
+        raise e
+
+    except KeyError as e:
+        print("Key/column value missing from the API response. ")
+        raise e 
+    
