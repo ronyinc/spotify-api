@@ -163,6 +163,73 @@ def get_users_top_tracks(access_token, param):
         raise
 
 
+def get_user_playlists(access_token):
+
+    headers = {"Authorization": f"Bearer {access_token}"}
+    data_all = []
+    session = make_session_with_retries()
+
+    user_playlists = []
+    user_playlist_items = []
+    playlist_url = f"{BASE_URL}/me/playlists"
+    
+    params_outer = {"limit": 50}
+
+    try:
+        while playlist_url:
+            response = session.get(playlist_url, headers=headers, params=params_outer)
+            response.raise_for_status()
+
+            playlist_data = response.json()
+            user_playlists.extend(playlist_data["items"])
+            ##data_all.append(data)
+
+            print(f"Fetched {len(playlist_data['items'])} records")
+
+            print("\n")
+
+            for playlist in playlist_data["items"]:
+
+                playlist_id = playlist["id"]
+                print(f"The playlist id is {playlist_id}")
+
+                playlist_items_url = f"{BASE_URL}/playlists/{playlist_id}/items"
+                params_inner = {"limit": 50}
+
+                while playlist_items_url:
+
+                    try:
+                        response = session.get(playlist_items_url, headers=headers, params=params_inner)
+                        response.raise_for_status()
+                    except requests.exceptions.RequestException as e:
+                        if response.status_code == 403:
+                            print(f"Skipping playlist {playlist_id} — not accessible")
+                            break
+                        raise
+
+                    data = response.json()
+
+                    for item in data["items"]:
+                        item["playlist_id"] = playlist_id
+
+                    user_playlist_items.extend(data["items"])
+                    print(f"Fetched {len(data['items'])} records")
+                    playlist_items_url = data["next"]
+                    params_inner=None
+
+            playlist_url = playlist_data["next"]
+            params_outer = None
+
+        return user_playlist_items, user_playlists
+        
+    except requests.exceptions.RequestException as e:
+        print(f"Failed to fetch user's playlists: {e}")
+        raise
+
+
+
+
+
 
 
 

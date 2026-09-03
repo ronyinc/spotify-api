@@ -138,5 +138,4 @@ def flatten_user_top_tracks():
 
     except KeyError as e:
         print("Key/column value missing from the API response. ")
-        raise e 
-    
+        raise e     
