@@ -129,7 +129,7 @@ def flatten_user_top_tracks():
         df_selected.to_csv("/opt/airflow/spotify/data/user_top_tracks.csv", index=False, encoding="utf-8")
 
     except FileNotFoundError as e:
-        print("Inpput file not found")
+        print("Input file not found")
         raise e
 
     except json.JSONDecodeError as e:
@@ -139,3 +139,77 @@ def flatten_user_top_tracks():
     except KeyError as e:
         print("Key/column value missing from the API response. ")
         raise e     
+
+
+def flatten_user_playlist_items():
+
+    try:
+
+        with open("/opt/airflow/spotify/data/user_playlist_tracks.json","r") as f:
+            data = json.load(f)
+
+        df = pd.json_normalize(data)
+
+        print("\n")
+        print(df.columns.tolist())
+
+        df['artist_name'] = df["item.artists"].apply(
+                                           lambda x : ",".join(a["name"] for a in x)
+                                           if isinstance(x, list)
+                                           else None
+                                           )
+
+        # print(df[df["item.artists"].isna()][["item.name","item.type","item.is_local"]])
+
+        df_selected = df[["added_at","item.id","item.name","playlist_id","added_by.id","item.album.type","item.album.href",
+        "item.album.id","item.album.name","item.album.release_date","item.duration_ms"]].rename(columns={"added_by.id":"playlist_added_by_user_id"})
+
+        df_selected.to_csv("/opt/airflow/spotify/data/user_playlist_items.csv", index=False, encoding="utf-8")
+
+    except FileNotFoundError as e:
+        print("Input file not found")
+        raise e
+
+    except json.JSONDecodeError as e:
+        print("File exists. But containes corrupt json")
+        raise e
+
+    except KeyError as e:
+        print("Key/column value missing from the API response. ")
+        raise e     
+
+
+
+def flatten_user_playlist():
+
+    try:
+
+        with open("/opt/airflow/spotify/data/user_playlist.json","r") as f:
+            data = json.load(f)
+
+        df = pd.json_normalize(data)
+
+        print("\n")
+        print(df.columns.tolist())
+
+
+        # print(df[df["item.artists"].isna()][["item.name","item.type","item.is_local"]])
+
+        df_selected = df[["id","name","type","owner.display_name","owner.id","items.href",
+        "items.total"]].rename(columns={"id":"playlist_id",
+        "owner.display_name":"playlist_id_owner_name"})
+
+        df_selected.to_csv("/opt/airflow/spotify/data/user_playlist.csv", index=False, encoding="utf-8")
+
+    except FileNotFoundError as e:
+        print("Input file not found")
+        raise e
+
+    except json.JSONDecodeError as e:
+        print("File exists. But containes corrupt json")
+        raise e
+
+    except KeyError as e:
+        print("Key/column value missing from the API response. ")
+        raise e     
+
