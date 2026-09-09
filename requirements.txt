@@ -1,5 +1,6 @@
 dbt-core==1.11.10
 dbt-snowflake==1.11.5
+snowflake-connector-python
 cryptography>=41.0.0
 apache-airflow-providers-snowflake
 requests
