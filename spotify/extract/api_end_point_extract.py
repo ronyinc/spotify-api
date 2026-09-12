@@ -23,6 +23,7 @@ def get_recent_tracks(access_token):
         headers = {
             "Authorization": f"Bearer {access_token}"
         }
+        session = make_session_with_retries()
 
         all_tracks = []
 
@@ -31,7 +32,7 @@ def get_recent_tracks(access_token):
         try:
 
             while url:
-                response = requests.get(
+                response = session.get(
                 url,
                 headers=headers,
                 params={"limit": 10},
@@ -59,6 +60,7 @@ def get_users_saved_tracks(access_token):
     headers = {
           "Authorization": f"Bearer {access_token}"
      }
+    session = make_session_with_retries()
 
     saved_tracks = []
     data_all = []
@@ -68,7 +70,7 @@ def get_users_saved_tracks(access_token):
     try: 
 
         while url:
-            response = requests.get(
+            response = session.get(
                 url,
                 headers=headers,
                 params={"limit": 25},
