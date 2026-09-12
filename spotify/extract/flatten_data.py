@@ -22,7 +22,9 @@ def flatten_recent_tracks():
         df_selected = df[["track.id","track.name","track.type","track.album.id","track.album.name",
                         "track.track_number","track.album.release_date","played_at","track.album.type"
                         ,"artist_name"]].rename(columns={"track.album.id":"album_id","track.album.name":"album_name"
-                                                        ,"track.album.release_date":"album_release_date","track.album.type":"album_type"})
+                                                        ,"track.album.release_date":"album_release_date","track.album.type":"album_type"
+                                                        ,"track.id":"track_id","track.name":"track_name","track.type":"track_type",
+                                                        "track.track_number":"track_number" })
 
         df_selected.to_csv("/opt/airflow/spotify/data/recent_tracks.csv", index=False, encoding="utf-8")
 
@@ -62,7 +64,9 @@ def flatten_saved_tracks():
 
         df_selected = df[["track.id","track.name","track.duration_ms","track.album.id","track.album.name",
                         "added_at","track.album.album_type","artist_name","track.album.href",
-                        "track.album.release_date","track_spotify_url"]]
+                        "track.album.release_date","track_spotify_url"]].rename(columns= {"track.id":"track_id", "track.name":"track_name",
+                        "track.duration_ms":"track_duration_ms", "track.album.id":"track_album_id", "track.album.name":"track_album_name", 
+                        "track.album.album_type":"track_album_type", "track.album.href":"track_album_href", "track.album.release_date":"track_album_release_date"})
 
         df_selected.to_csv("/opt/airflow/spotify/data/saved_tracks.csv", index=False, encoding="utf-8")
 
