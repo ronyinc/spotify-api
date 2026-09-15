@@ -21,41 +21,41 @@ def main():
 
     
 
-    # #Extract Operation : Extract data from all the spotify end points 
+    #Extract Operation : Extract data from all the spotify end points 
 
-    # #calling recent-track data end point.
+    #calling recent-track data end point.
 
-    # tracks = get_recent_tracks(token_response["access_token"])
-    # save_json(tracks, "data/recent_tracks.json")
-    # flatten_recent_tracks()
+    tracks = get_recent_tracks(token_response["access_token"])
+    save_json(tracks, "data/recent_tracks.json")
+    flatten_recent_tracks()
 
-    # # calling the users saved tracks list. 
+    # calling the users saved tracks list. 
  
-    # user_saved_songs = get_users_saved_tracks(token_response["access_token"])
-    # save_json(user_saved_songs, "data/user_saved_tracks.json")
-    # flatten_saved_tracks()
+    user_saved_songs = get_users_saved_tracks(token_response["access_token"])
+    save_json(user_saved_songs, "data/user_saved_tracks.json")
+    flatten_saved_tracks()
 
-    # # calling user top artist and tracks
+    # calling user top artist and tracks
 
-    # users_top_artists = get_users_top_artists(token_response["access_token"],"artists")
-    # save_json(users_top_artists, "data/user_top_artists.json")
-    # flatten_user_top_artists()
+    users_top_artists = get_users_top_artists(token_response["access_token"],"artists")
+    save_json(users_top_artists, "data/user_top_artists.json")
+    flatten_user_top_artists()
 
-    # users_top_tracks = get_users_top_tracks(token_response["access_token"],"tracks")
-    # save_json(users_top_tracks, "data/user_top_tracks.json")
-    # flatten_user_top_tracks()
+    users_top_tracks = get_users_top_tracks(token_response["access_token"],"tracks")
+    save_json(users_top_tracks, "data/user_top_tracks.json")
+    flatten_user_top_tracks()
 
-    # #calling user playlist and  items in it.
+    #calling user playlist and  items in it.
 
-    # user_playlist_items, user_playlists = get_user_playlists(token_response["access_token"])
-    # save_json(user_playlists, "data/user_playlist.json")
-    # save_json(user_playlist_items, "data/user_playlist_tracks.json")
-    # flatten_user_playlist_items()
-    # flatten_user_playlist()
+    user_playlist_items, user_playlists = get_user_playlists(token_response["access_token"])
+    save_json(user_playlists, "data/user_playlist.json")
+    save_json(user_playlist_items, "data/user_playlist_tracks.json")
+    flatten_user_playlist_items()
+    flatten_user_playlist()
 
-    # #Loading Operation : Load data into the snowflake RAW tables
-    # user_recent_tracks_load_to_snowflake()
-    # user_saved_tracks_load_to_snowflake()
+    #Loading Operation : Load data into the snowflake RAW tables
+    user_recent_tracks_load_to_snowflake()
+    user_saved_tracks_load_to_snowflake()
     user_playlist_items_load_to_snowflake()
     user_playlist_load_to_snowflake()
 
