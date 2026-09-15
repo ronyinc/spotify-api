@@ -163,10 +163,19 @@ def flatten_user_playlist_items():
                                            else None
                                            )
 
+        df["playlist_item_key"] = (
+            df["playlist_id"].astype(str)
+            + "_"
+            + df["item.id"].astype(str)
+        )
+
         # print(df[df["item.artists"].isna()][["item.name","item.type","item.is_local"]])
 
-        df_selected = df[["added_at","item.id","item.name","playlist_id","added_by.id","item.album.type","item.album.href",
-        "item.album.id","item.album.name","item.album.release_date","item.duration_ms"]].rename(columns={"added_by.id":"playlist_added_by_user_id"})
+        df_selected = df[["playlist_item_key","added_at","item.id","item.name","playlist_id","added_by.id","item.album.type","item.album.href",
+        "item.album.id","item.album.name","item.album.release_date","item.duration_ms"]].rename(columns={"added_by.id":"playlist_added_by_user_id",
+         "item.id":"item_id", "item.name":"item_name", "item.album.type":"item_album_type", "item.album.href":"item_album_href", "item.album.id":"item_album_id",
+          "item.album.name":"item_album_name", "item.album.release_date":"item_album_release_date", "item.duration_ms":"item_duration_ms" 
+          })
 
         df_selected.to_csv("/opt/airflow/spotify/data/user_playlist_items.csv", index=False, encoding="utf-8")
 
@@ -201,7 +210,7 @@ def flatten_user_playlist():
 
         df_selected = df[["id","name","type","owner.display_name","owner.id","items.href",
         "items.total"]].rename(columns={"id":"playlist_id",
-        "owner.display_name":"playlist_id_owner_name"})
+        "owner.display_name":"playlist_id_owner_name"}).rename(columns={"owner.id":"owner_id", "items.href":"items_href", "items.total":"items_total"})
 
         df_selected.to_csv("/opt/airflow/spotify/data/user_playlist.csv", index=False, encoding="utf-8")
 
