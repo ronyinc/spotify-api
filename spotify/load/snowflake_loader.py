@@ -83,6 +83,7 @@ def user_recent_tracks_load_to_snowflake():
         print("\n")
         print("Successfully loaded all the data into the table - RAW.SPOTIFY_SCHEMA.RECENT_TRACKS ")
         print("\n")
+        conn.commit()
 
     finally:
         cursor.close()
@@ -140,12 +141,14 @@ def user_saved_tracks_load_to_snowflake():
         print("\n")
         print("Successfully loaded all the data into the table - RAW.SPOTIFY_SCHEMA.SAVED_TRACKS ")
 
+        conn.commit()
+
     finally:
         cursor.close()
         conn.close() 
 
 
-# load only new or updated records into the RAW layer. Then stage _dedupe
+# load only new or updated records into the RAW layer. Then stage _dedupe to clean
 # intermediate layer > normalize if required. 
 
 def user_playlist_items_load_to_snowflake():
@@ -246,12 +249,15 @@ def user_playlist_items_load_to_snowflake():
         """
         cursor.execute(update_sql)
         print(f"Updated {cursor.rowcount} changed rows")
+        conn.commit()
 
     finally:
         cursor.close()
         conn.close() 
 
 
+# load user playlists.... append all in RAW, stage --> Dedupe . 
+# intermediate --> mereg new records and update existing if any.  
 
 def user_playlist_load_to_snowflake():
 
@@ -271,7 +277,7 @@ def user_playlist_load_to_snowflake():
     try:
         
         cursor.execute("""
-                CREATE TEMPORARY TABLE IF NOT EXISTS RAW.SPOTIFY_SCHEMA.USER_PLAYLIST_TMP (
+                CREATE TABLE IF NOT EXISTS RAW.SPOTIFY_SCHEMA.USER_PLAYLIST (
                        PLAYLIST_ID VARCHAR,
                        NAME VARCHAR,
                        TYPE VARCHAR,
@@ -286,60 +292,181 @@ def user_playlist_load_to_snowflake():
         success, num_chunks, num_rows, _ =  write_pandas(
             conn, 
             df,
-            table_name = "USER_PLAYLIST_TMP",
+            table_name = "USER_PLAYLIST",
             schema = "SPOTIFY_SCHEMA",
             database = "RAW", 
-            overwrite=True
+            overwrite=False
         )
         
-        print(f"Successfully loaded {num_rows} into the tmp table - RAW.SPOTIFY_SCHEMA.USER_PLAYLIST_TMP ")
+        print(f"Successfully loaded {num_rows} into the table - RAW.SPOTIFY_SCHEMA.USER_PLAYLIST ")
         print("\n")
 
-        insert_sql = f"""
-        INSERT INTO RAW.SPOTIFY_SCHEMA.USER_PLAYLIST (
-                PLAYLIST_ID, NAME, TYPE, PLAYLIST_ID_OWNER_NAME, OWNER_ID, ITEMS_HREF, ITEMS_TOTAL, LOADED_AT
-         )
-         SELECT
-                tmp.PLAYLIST_ID, tmp.NAME, tmp.TYPE, tmp.PLAYLIST_ID_OWNER_NAME, tmp.OWNER_ID, tmp.ITEMS_HREF, tmp.ITEMS_TOTAL, tmp.LOADED_AT
-         FROM 
-                 RAW.SPOTIFY_SCHEMA.USER_PLAYLIST_TMP tmp
-         LEFT JOIN 
-                    RAW.SPOTIFY_SCHEMA.USER_PLAYLIST trg
-         ON tmp.PLAYLIST_ID = trg.PLAYLIST_ID
-         WHERE trg.PLAYLIST_ID IS NULL;           
-        """
-        cursor.execute(insert_sql)
-        print(f"Inserted {cursor.rowcount} rows")
-
-        update_sql = f"""
-        UPDATE RAW.SPOTIFY_SCHEMA.USER_PLAYLIST as trg
-        SET
-            PLAYLIST_ID = tmp.PLAYLIST_ID,
-            NAME = tmp.NAME,
-            TYPE = tmp.TYPE,
-            PLAYLIST_ID_OWNER_NAME = tmp.PLAYLIST_ID_OWNER_NAME,
-            OWNER_ID = tmp.OWNER_ID,
-            ITEMS_HREF = tmp.ITEMS_HREF,
-            ITEMS_TOTAL = tmp.ITEMS_TOTAL,
-            LOADED_AT = tmp.LOADED_AT
-        FROM 
-             RAW.SPOTIFY_SCHEMA.USER_PLAYLIST_TMP tmp
-        WHERE trg.PLAYLIST_ID = tmp.PLAYLIST_ID
-        AND (
-               trg.PLAYLIST_ID IS DISTINCT FROM tmp.PLAYLIST_ID OR 
-               trg.NAME IS DISTINCT FROM tmp.NAME OR
-               trg.TYPE IS DISTINCT FROM tmp.TYPE OR
-               trg.PLAYLIST_ID_OWNER_NAME IS DISTINCT FROM tmp.PLAYLIST_ID_OWNER_NAME OR
-               trg.OWNER_ID IS DISTINCT FROM tmp.OWNER_ID OR
-               trg.ITEMS_HREF IS DISTINCT FROM tmp.ITEMS_HREF OR 
-               trg.ITEMS_TOTAL IS DISTINCT FROM tmp.ITEMS_TOTAL OR 
-               trg.LOADED_AT IS DISTINCT FROM tmp.LOADED_AT
-        )        
-        """
-        cursor.execute(update_sql)
-        print(f"Updated {cursor.rowcount} changed rows")
+        conn.commit()
 
     finally:
         cursor.close()
         conn.close()
 
+# load user top artists... append all in RAW, stage --> Dedupe . 
+# intermediate --> mereg new records and update existing if any.
+
+
+
+def user_top_artist_load_to_snowflake():
+
+    csv_path = "/opt/airflow/spotify/data/user_top_artists.csv"
+
+    df = pd.read_csv(csv_path)
+    df["loaded_at"] = datetime.now(timezone.utc)
+    df["loaded_at_year"] = df["loaded_at"].dt.year
+    df["loaded_at_month"] = df["loaded_at"].dt.month
+
+    df.columns = df.columns.str.upper()
+
+    print(f"Loaded CSV with {len(df)} rows")
+
+    conn = get_snowflake_connection()
+    cursor = conn.cursor()
+    
+    try:
+        
+        cursor.execute("""
+                CREATE TABLE IF NOT EXISTS RAW.SPOTIFY_SCHEMA.USER_TOP_ARTISTS (
+                       ARTIST_ID VARCHAR,
+                       ARTIST_NAME VARCHAR,
+                       TYPE VARCHAR,
+                       ARTIST_SPOTIFY_URL VARCHAR,
+                       LOADED_AT TIMESTAMP_TZ,
+                       LOADED_AT_YEAR NUMBER(4,0),
+                       LOADED_AT_MONTH NUMBER(4,0)
+                )
+            """)
+
+        success, num_chunks, num_rows, _ =  write_pandas(
+            conn, 
+            df,
+            table_name = "USER_TOP_ARTISTS",
+            schema = "SPOTIFY_SCHEMA",
+            database = "RAW", 
+            overwrite=False,
+            use_logical_type=True
+        )
+        
+        print(f"Successfully loaded {num_rows} into the table - RAW.SPOTIFY_SCHEMA.USER_TOP_ARTISTS")
+        print("\n")
+
+        conn.commit()
+
+    finally:
+        cursor.close()
+        conn.close()
+
+# load only new or updated records into the RAW layer. Then stage _dedupe to clean
+# intermediate layer > normalize if required. 
+
+def user_top_tracks_load_to_snowflake():
+
+    csv_path = "/opt/airflow/spotify/data/user_top_tracks.csv"
+
+    df = pd.read_csv(csv_path)
+    df["loaded_at"] = datetime.now(timezone.utc)
+    df["loaded_at_year"] = df["loaded_at"].dt.year
+    df["loaded_at_month"] = df["loaded_at"].dt.month
+
+    df.columns = df.columns.str.upper()
+
+    print(f"Loaded CSV with {len(df)} rows")
+
+    conn = get_snowflake_connection()
+    cursor = conn.cursor()
+    
+    try:
+        
+        cursor.execute("""
+                CREATE TEMPORARY TABLE IF NOT EXISTS RAW.SPOTIFY_SCHEMA.USER_TOP_TRACKS_TMP (
+                       TRACK_ID VARCHAR,
+                       TRACK_NAME VARCHAR,
+                       TYPE VARCHAR,
+                       TRACK_NUMBER VARCHAR,
+                       DURATION_MS NUMERIC,
+                       ARTIST_NAME VARCHAR,
+                       ALBUM_TYPE VARCHAR,
+                       ALBUM_NAME VARCHAR,
+                       ALBUM_RELEASE_DATE VARCHAR,
+                       ALBUM_TOTAL_TRACKS NUMERIC,
+                       LOADED_AT TIMESTAMP_TZ,
+                       LOADED_AT_YEAR NUMBER(4,0),
+                       LOADED_AT_MONTH NUMBER(4,0)
+                )
+            """)
+
+        success, num_chunks, num_rows, _ =  write_pandas(
+            conn, 
+            df,
+            table_name = "USER_TOP_TRACKS_TMP",
+            schema = "SPOTIFY_SCHEMA",
+            database = "RAW", 
+            overwrite=True,
+            use_logical_type=True
+        )
+        
+        print(f"Successfully loaded {num_rows} into the tmp table - RAW.SPOTIFY_SCHEMA.USER_TOP_TRACKS_TMP ")
+        print("\n")
+
+
+        insert_sql = f"""
+        INSERT INTO RAW.SPOTIFY_SCHEMA.USER_TOP_TRACKS (
+                TRACK_ID, TRACK_NAME, TYPE, TRACK_NUMBER, DURATION_MS, ARTIST_NAME, ALBUM_TYPE, ALBUM_NAME, ALBUM_RELEASE_DATE, ALBUM_TOTAL_TRACKS, 
+                LOADED_AT, LOADED_AT_YEAR, LOADED_AT_MONTH  
+         )
+         SELECT
+                tmp.TRACK_ID, tmp.TRACK_NAME, tmp.TYPE, tmp.TRACK_NUMBER, tmp.DURATION_MS, tmp.ARTIST_NAME, tmp.ALBUM_TYPE, tmp.ALBUM_NAME, 
+                tmp.ALBUM_RELEASE_DATE, tmp.ALBUM_TOTAL_TRACKS, tmp.LOADED_AT, tmp.LOADED_AT_YEAR, tmp.LOADED_AT_MONTH
+         FROM 
+                 RAW.SPOTIFY_SCHEMA.USER_TOP_TRACKS_TMP tmp
+         LEFT JOIN 
+                    RAW.SPOTIFY_SCHEMA.USER_TOP_TRACKS trg
+         ON tmp.TRACK_ID = trg.TRACK_ID
+         WHERE trg.TRACK_ID IS NULL;           
+        """
+        cursor.execute(insert_sql)
+        print(f"Inserted {cursor.rowcount} rows")
+
+        update_sql = f"""
+        UPDATE RAW.SPOTIFY_SCHEMA.USER_TOP_TRACKS as trg
+        SET
+            TRACK_NAME = tmp.TRACK_NAME,
+            TYPE = tmp.TYPE,
+            TRACK_NUMBER = tmp.TRACK_NUMBER,
+            DURATION_MS = tmp.DURATION_MS,
+            ARTIST_NAME = tmp.ARTIST_NAME,
+            ALBUM_TYPE = tmp.ALBUM_TYPE,
+            ALBUM_NAME = tmp.ALBUM_NAME,
+            ALBUM_RELEASE_DATE = tmp.ALBUM_RELEASE_DATE,
+            ALBUM_TOTAL_TRACKS = tmp.ALBUM_TOTAL_TRACKS,
+            LOADED_AT = tmp.LOADED_AT,
+            LOADED_AT_YEAR = tmp.LOADED_AT_YEAR,
+            LOADED_AT_MONTH = tmp.LOADED_AT_MONTH
+        FROM 
+             RAW.SPOTIFY_SCHEMA.USER_TOP_TRACKS_TMP tmp
+        WHERE trg.TRACK_ID = tmp.TRACK_ID
+        AND (
+               trg.TRACK_NAME IS DISTINCT FROM tmp.TRACK_NAME OR
+               trg.TYPE IS DISTINCT FROM tmp.TYPE OR
+               trg.TRACK_NUMBER IS DISTINCT FROM tmp.TRACK_NUMBER OR
+               trg.DURATION_MS IS DISTINCT FROM tmp.DURATION_MS OR
+               trg.ARTIST_NAME IS DISTINCT FROM tmp.ARTIST_NAME OR
+               trg.ALBUM_TYPE IS DISTINCT FROM tmp.ALBUM_TYPE OR
+               trg.ALBUM_NAME IS DISTINCT FROM tmp.ALBUM_NAME OR
+               trg.ALBUM_RELEASE_DATE IS DISTINCT FROM tmp.ALBUM_RELEASE_DATE OR
+               trg.ALBUM_TOTAL_TRACKS IS DISTINCT FROM tmp.ALBUM_TOTAL_TRACKS
+        )        
+        """
+        cursor.execute(update_sql)
+        print(f"Updated {cursor.rowcount} changed rows")
+
+        conn.commit()
+
+    finally:
+        cursor.close()
+        conn.close()        
