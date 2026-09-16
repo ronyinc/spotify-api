@@ -123,14 +123,16 @@ def flatten_user_top_tracks():
 
         df['artist_name'] = df["album.artists"].apply(lambda x : ",".join(a["name"] for a in x))
 
-        print("\n")
-        print(df.columns.tolist())
-
         df_selected = df[["id","name","type","track_number","duration_ms","artist_name","album.album_type",
         "album.name","album.release_date","album.total_tracks"]].rename(columns={"id":"track_id",
-        "name":"track_name"})
+        "name":"track_name", "album.album_type":"album_type", "album.name":"album_name", 
+        "album.release_date":"album_release_date", "album.total_tracks":"album_total_tracks"
+        })
 
         df_selected.to_csv("/opt/airflow/spotify/data/user_top_tracks.csv", index=False, encoding="utf-8")
+
+        print("\n")
+        print(df_selected.columns.tolist())
 
     except FileNotFoundError as e:
         print("Input file not found")
