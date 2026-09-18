@@ -61,6 +61,7 @@ services:
       - AIRFLOW__WEBSERVER__EXPOSE_CONFIG=True
       - AIRFLOW__WEBSERVER__SECRET_KEY=${AIRFLOW_SECRET_KEY}
       - DBT_PROFILES_DIR=/opt/airflow/dbt_profiles
+      - PYTHONPATH=/opt/airflow
     ports:
       - "8082:8080"
       - "8888:8888"
@@ -92,6 +93,7 @@ services:
       - AIRFLOW__DATABASE__SQL_ALCHEMY_CONN=postgresql+psycopg2://airflow:airflow@airflow-db:5432/airflow
       - AIRFLOW__CORE__LOAD_EXAMPLES=False
       - DBT_PROFILES_DIR=/opt/airflow/dbt_profiles
+      - PYTHONPATH=/opt/airflow
     volumes:
       - ./dags:/opt/airflow/dags
       - ./dbt:/opt/airflow/dbt
