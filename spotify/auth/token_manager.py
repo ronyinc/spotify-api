@@ -1,5 +1,5 @@
 from urllib.parse import urlencode
-from config import CLIENT_ID, CLIENT_SECRET, TOKEN_URL
+from spotify.config import CLIENT_ID, CLIENT_SECRET, TOKEN_URL
 import requests
 from requests.adapters import HTTPAdapter
 from urllib3.util.retry import Retry
