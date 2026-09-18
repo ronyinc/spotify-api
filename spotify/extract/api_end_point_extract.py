@@ -1,7 +1,7 @@
 
 import requests
 import json
-from config import BASE_URL
+from spotify.config import BASE_URL
 from requests.adapters import HTTPAdapter
 from urllib3.util.retry import Retry
 
