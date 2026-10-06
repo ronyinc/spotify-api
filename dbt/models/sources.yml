@@ -1,0 +1,29 @@
+version: 2
+
+sources:
+  - name: spotify_analytics
+    database: raw
+    schema: spotify_schema
+    tables:
+      - name: recent_tracks
+        columns:
+          - name: track_id
+            data_type: varchar
+          - name: track_name
+            data_type: varchar  
+          - name: track_type
+            data_type: varchar
+          - name: album_id
+            data_type: varchar 
+          - name: album_name
+            data_type: varchar
+          - name: track_number
+            data_type: numeric
+          - name: album_release_date
+            data_type: date
+          - name: played_at
+            data_type: timestamp_ntz
+          - name: album_type
+            data_type: varchar
+          - name: artist_name
+            data_type: varchar   
