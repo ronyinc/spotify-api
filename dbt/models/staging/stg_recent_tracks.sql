@@ -10,5 +10,6 @@ select
      ,played_at
      ,album_type
      ,artist_name
+     ,loaded_at
 from  
       {{ source('spotify_analytics', 'recent_tracks') }}

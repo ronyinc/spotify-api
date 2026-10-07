@@ -1,0 +1,165 @@
+
+models:
+  - name: stg_recent_tracks
+    description: ""
+    columns:
+      - name: track_id
+        data_type: varchar
+        description: ""
+
+      - name: track_name
+        data_type: varchar
+        description: ""
+
+      - name: track_type
+        data_type: varchar
+        description: ""
+
+      - name: album_id
+        data_type: varchar
+        description: ""
+
+      - name: album_name
+        data_type: varchar
+        description: ""
+
+      - name: track_number
+        data_type: number
+        description: ""
+
+      - name: album_release_date
+        data_type: varchar
+        description: ""
+
+      - name: played_at
+        data_type: timestamp_tz
+        description: ""
+
+      - name: album_type
+        data_type: varchar
+        description: ""
+
+      - name: artist_name
+        data_type: varchar
+        description: ""
+
+      - name: loaded_at
+        data_type: timestamp_tz
+        description: ""
+
+  - name: stg_saved_tracks
+    description: ""
+    columns:
+      - name: track_id
+        data_type: varchar
+        description: ""
+
+      - name: track_name
+        data_type: varchar
+        description: ""
+
+      - name: track_duration_ms
+        data_type: varchar
+        description: ""
+
+      - name: track_album_id
+        data_type: varchar
+        description: ""
+
+      - name: track_album_name
+        data_type: varchar
+        description: ""
+
+      - name: added_at
+        data_type: timestamp_tz
+        description: ""
+
+      - name: track_album_type
+        data_type: varchar
+        description: ""
+
+      - name: artist_name
+        data_type: varchar
+        description: ""
+
+      - name: track_album_href
+        data_type: varchar
+        description: ""
+
+      - name: track_album_release_date
+        data_type: date
+        description: ""
+
+      - name: track_spotify_url
+        data_type: varchar
+        description: ""
+
+      - name: loaded_at
+        data_type: timestamp_tz
+        description: ""
+
+  - name: stg_user_playlist
+    description: ""
+    columns:
+      - name: playlist_id
+        data_type: varchar
+        description: ""
+
+      - name: playlist_name
+        data_type: varchar
+        description: ""
+
+      - name: playlist_type
+        data_type: varchar
+        description: ""
+
+      - name: playlist_id_owner_name
+        data_type: varchar
+        description: ""
+
+      - name: owner_id
+        data_type: varchar
+        description: ""
+
+      - name: items_href
+        data_type: varchar
+        description: ""
+
+      - name: items_total
+        data_type: number
+        description: ""
+
+      - name: loaded_at
+        data_type: timestamp_tz
+        description: ""
+
+  - name: stg_user_top_artists
+    description: ""
+    columns:
+      - name: artist_id
+        data_type: varchar
+        description: ""
+
+      - name: artist_name
+        data_type: varchar
+        description: ""
+
+      - name: record_type
+        data_type: varchar
+        description: ""
+
+      - name: artist_spotify_url
+        data_type: varchar
+        description: ""
+
+      - name: loaded_at
+        data_type: timestamp_tz
+        description: ""
+
+      - name: loaded_at_year
+        data_type: number
+        description: ""
+
+      - name: loaded_at_month
+        data_type: number
+        description: ""

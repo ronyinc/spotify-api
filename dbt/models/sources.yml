@@ -26,4 +26,65 @@ sources:
           - name: album_type
             data_type: varchar
           - name: artist_name
-            data_type: varchar   
+            data_type: varchar
+          - name: loaded_at
+            data_type: timestamp_ntz
+
+      - name: saved_tracks
+        columns:
+          - name: track_id
+            data_type: varchar
+          - name: track_name
+            data_type: varchar  
+          - name: track_duration_ms
+            data_type: numeric
+          - name: track_album_id
+            data_type: varchar 
+          - name: track_album_name
+            data_type: varchar
+          - name: added_at
+            data_type: timestamp_ntz
+          - name: track_album_type
+            data_type: varchar
+          - name: artist_name
+            data_type: varchar
+          - name: track_album_href
+            data_type: varchar
+          - name: track_album_release_date
+            data_type: date
+          - name: track_spotify_url
+            data_type: varchar  
+          - name: loaded_at
+            data_type: timestamp_ntz
+
+      - name: user_playlist
+        columns:
+          - name: playlist_id
+            data_type: varchar
+          - name: name
+            data_type: varchar  
+          - name: type
+            data_type: varchar
+          - name: playlist_id_owner_name
+            data_type: varchar 
+          - name: owner_id
+            data_type: varchar
+          - name: items_href
+            data_type: varchar
+          - name: items_total
+            data_type: numeric
+          - name: loaded_at
+            data_type: timestamp_ntz
+        
+      - name: user_top_artists
+        columns:
+          - name: artist_id
+            data_type: varchar
+          - name: artist_name
+            data_type: varchar  
+          - name: type
+            data_type: varchar
+          - name: artist_spotify_url
+            data_type: varchar 
+          - name: loaded_at
+            data_type: timestamp_ntz  
