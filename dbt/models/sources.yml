@@ -4,8 +4,30 @@ sources:
   - name: spotify_analytics
     database: raw
     schema: spotify_schema
+
+    config:
+      loaded_at_field: loaded_at
+      freshness:
+        warn_after: 
+          count: 24
+          period: hour
+        error_after: 
+          count: 48
+          period: hour
+          
+
     tables:
       - name: recent_tracks
+        config: 
+          freshness:
+            warn_after: 
+              count: 12
+              period: hour
+            
+            error_after: 
+              count: 24
+              period: hour
+            
         columns:
           - name: track_id
             data_type: varchar
@@ -31,6 +53,8 @@ sources:
             data_type: timestamp_ntz
 
       - name: saved_tracks
+        config:
+          freshness: null
         columns:
           - name: track_id
             data_type: varchar
@@ -85,6 +109,76 @@ sources:
           - name: type
             data_type: varchar
           - name: artist_spotify_url
-            data_type: varchar 
+            data_type: varchar
+          - name: loaded_at_month
+            data_type: numeric
+          - name: loaded_at_year
+            data_type: numeric     
           - name: loaded_at
             data_type: timestamp_ntz  
+
+      - name: user_playlist_items
+        columns:
+          - name: playlist_item_key
+            data_type: varchar
+            description: "unique id for each item in the playlist"
+            data_tests:
+              - unique
+              - not_null
+          - name: added_at
+            data_type: timestamp_ntz  
+          - name: item_id
+            data_type: varchar
+          - name: item_name
+            data_type: varchar 
+          - name: playlist_id
+            data_tests:
+              - relationships:
+                  to: source('spotify_analytics', 'user_playlist')
+                  field:  playlist_id  
+            data_type: varchar
+          - name: playlist_added_by_user_id
+            data_type: varchar 
+          - name: item_album_type
+            data_type: varchar     
+          - name: item_album_href
+            data_type: varchar 
+          - name: item_album_id
+            data_type: varchar   
+          - name: item_album_name
+            data_type: varchar 
+          - name: item_album_release_date
+            data_type: date 
+          - name: item_duration_ms
+            data_type: numeric 
+          - name: loaded_at
+            data_type: timestamp_ntz  
+
+      - name: user_top_tracks
+        columns:
+          - name: track_id
+            data_type: varchar
+          - name: track_name
+            data_type: varchar  
+          - name: type
+            data_type: varchar
+          - name: track_number
+            data_type: numeric 
+          - name: duration_ms
+            data_type: numeric
+          - name: artist_name
+            data_type: varchar 
+          - name: album_type
+            data_type: varchar     
+          - name: album_name
+            data_type: varchar 
+          - name: album_release_date
+            data_type: date   
+          - name: album_total_tracks
+            data_type: numeric 
+          - name: loaded_at_month
+            data_type: numeric
+          - name: loaded_at_year
+            data_type: numeric     
+          - name: loaded_at
+            data_type: timestamp_ntz           
