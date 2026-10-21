@@ -2,8 +2,8 @@ version: 2
 
 sources:
   - name: spotify_analytics
-    database: raw
-    schema: spotify_schema
+    database: RAW
+    schema: "{{ env_var('DBT_' ~ (target.name | upper) ~ '_SOURCE_SCHEMA') }}"
 
     config:
       loaded_at_field: loaded_at
