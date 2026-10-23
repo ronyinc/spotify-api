@@ -1,0 +1,46 @@
+version: 2
+
+models:
+  - name: int_recent_tracks
+    description: ""
+    columns:
+      - name: track_id
+        data_type: varchar
+        description: ""
+
+      - name: track_name
+        data_type: varchar
+        description: ""
+
+      - name: track_type
+        data_type: varchar
+        description: ""
+
+      - name: album_id
+        data_type: varchar
+        description: ""
+
+      - name: album_name
+        data_type: varchar
+        description: ""
+
+      - name: track_number
+        data_type: number
+        description: ""
+
+      - name: album_release_date
+        data_type: varchar
+        description: ""
+
+      - name: played_at
+        data_type: timestamp_tz
+        description: ""
+
+      - name: album_type
+        data_type: varchar
+        description: ""
+
+      - name: artist_name
+        data_type: varchar
+        description: ""
+

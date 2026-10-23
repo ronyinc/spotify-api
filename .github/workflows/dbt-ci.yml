@@ -1,0 +1,87 @@
+name: dbt CI
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  dbt-run:
+    runs-on: ubuntu-latest
+    environment: DBT_SPOTIFY
+
+    env:
+      DBT_PRIVATE_KEY: ${{ secrets.DBT_PRIVATE_KEY }}
+      DBT_SNOWFLAKE_ACCOUNT: ${{ secrets.DBT_SNOWFLAKE_ACCOUNT }}
+      DBT_SNOWFLAKE_USER: ${{ secrets.DBT_SNOWFLAKE_USER }}
+      DBT_SNOWFLAKE_ROLE: ${{ secrets.DBT_SNOWFLAKE_ROLE }}
+      DBT_SNOWFLAKE_WAREHOUSE: ${{ secrets.DBT_SNOWFLAKE_WAREHOUSE }}
+      DBT_CI_DATABASE: ${{ secrets.DBT_CI_DATABASE }}
+      DBT_CI_SCHEMA: pr_${{ github.event.pull_request.number }}
+      DBT_CI_SOURCE_SCHEMA: ${{ secrets.DBT_CI_SOURCE_SCHEMA}}
+      DBT_PROD_DATABASE: ${{ secrets.DBT_PROD_DATABASE }}
+      DBT_PROD_SCHEMA: ${{ secrets.DBT_PROD_SCHEMA }}
+      DBT_PROD_SOURCE_SCHEMA: ${{ secrets.DBT_PROD_SOURCE_SCHEMA}}
+      DBT_PRIVATE_KEY_PATH: /home/runner/.dbt/rsa_key.p8
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+
+      - name: Install dbt
+        run:  |
+          python -m pip install --upgrade pip
+          pip install dbt-core==1.11.10 dbt-snowflake==1.11.5
+
+      - name: Set up dbt profile + private key
+        run: |
+          mkdir -p ~/.dbt
+          cp dbt/.dbt/profiles.yml ~/.dbt/profiles.yml
+          echo "$DBT_PRIVATE_KEY" > ~/.dbt/rsa_key.p8
+          chmod 600 ~/.dbt/rsa_key.p8
+
+      - name: Install dbt deps
+        working-directory: ./dbt
+        run: dbt deps
+
+      - name: Run dbt debug
+        working-directory: ./dbt
+        run: dbt debug --target ci
+
+      - name: Run dbt seed
+        working-directory: ./dbt
+        run: dbt seed --target ci
+
+      - name: Create production state manifest from main
+        working-directory:  ./dbt
+        run: |
+          git checkout main
+          dbt deps
+          dbt parse --target prod
+          mkdir -p state
+          cp target/manifest.json state/manifest.json
+          git checkout -
+
+      - name: Show modified nodes on the ci 
+        working-directory: ./dbt
+        run: |
+          dbt ls --state ./state --select state:modified+ --target ci
+
+      # ----- the slim build --------- (modified + downstream)
+
+      - name: Run dbt
+        working-directory: ./dbt
+        run: |
+          dbt build \
+            --target ci \
+            --state ./state \
+            --defer \
+            --select "state:modified+"                     
+
