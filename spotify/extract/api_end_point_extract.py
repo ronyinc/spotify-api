@@ -128,6 +128,10 @@ def get_users_top_artists(access_token, param):
             url = data["next"]
             params = None
 
+            # Assign rank based on the original API response order 
+            for rank, artist in enumerate(top_artists_tracks, start=1):
+                artist["artist_rank"] = rank
+
         return top_artists_tracks
 
     except requests.exceptions.RequestException as e:

@@ -33,8 +33,8 @@ def get_snowflake_connection():
     return conn
 
 
-# load user recent tracks. append all in RAW, stage --> Dedupe . 
-# intermediate --> mereg new records and update existing if any.  
+# load user recent tracks. append all in RAW, stage --> land all records
+# intermediate (Dedupe) --> mereg new records and update existing if any.  
 
 
 def user_recent_tracks_load_to_snowflake():
@@ -90,8 +90,8 @@ def user_recent_tracks_load_to_snowflake():
         conn.close() 
 
 
-# load user saved tracks. append all in RAW, stage --> Dedupe . 
-# intermediate --> mereg new records and update existing if any.  
+# load user saved tracks. append all in RAW, stage  . 
+# intermediate (--> Dedupe) --> mereg new records and update existing if any.  
 
 
 def user_saved_tracks_load_to_snowflake():
@@ -256,8 +256,8 @@ def user_playlist_items_load_to_snowflake():
         conn.close() 
 
 
-# load user playlists.... append all in RAW, stage --> Dedupe . 
-# intermediate --> mereg new records and update existing if any.  
+# load user playlists.... append all in RAW, stage  
+# intermediate (--> Dedupe .) --> mereg new records and update existing if any.  
 
 def user_playlist_load_to_snowflake():
 
@@ -333,6 +333,7 @@ def user_top_artist_load_to_snowflake():
         cursor.execute("""
                 CREATE TABLE IF NOT EXISTS RAW.SPOTIFY_SCHEMA.USER_TOP_ARTISTS (
                        ARTIST_ID VARCHAR,
+                       ARTIST_RANK VARCHAR,
                        ARTIST_NAME VARCHAR,
                        TYPE VARCHAR,
                        ARTIST_SPOTIFY_URL VARCHAR,

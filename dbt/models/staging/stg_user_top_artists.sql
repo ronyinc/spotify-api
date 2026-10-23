@@ -1,6 +1,7 @@
 
 select 
       artist_id,
+      artist_rank,
       artist_name,
       type as record_type,
       artist_spotify_url,
