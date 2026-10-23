@@ -19,6 +19,8 @@ jobs:
       DBT_CI_DATABASE: ${{ secrets.DBT_CI_DATABASE }}
       DBT_CI_SCHEMA: pr_${{ github.event.pull_request.number }}
       DBT_CI_SOURCE_SCHEMA: ${{ secrets.DBT_CI_SOURCE_SCHEMA}}
+      DBT_PROD_DATABASE: ${{ secrets.DBT_PROD_DATABASE }}
+      DBT_PROD_SCHEMA: ${{ secrets.DBT_PROD_SCHEMA }}
       DBT_PRIVATE_KEY_PATH: /home/runner/.dbt/rsa_key.p8
 
     steps:
