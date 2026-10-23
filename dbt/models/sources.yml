@@ -104,6 +104,8 @@ sources:
         columns:
           - name: artist_id
             data_type: varchar
+          - name: artist_rank
+            data_type: varchar  
           - name: artist_name
             data_type: varchar  
           - name: type

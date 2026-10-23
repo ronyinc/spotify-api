@@ -95,7 +95,7 @@ def flatten_user_top_artists():
         print("\n")
         print(df.columns.tolist())
 
-        df_selected = df[["id","name","type","external_urls.spotify"]].rename(columns={"id":"artist_id","name":"artist_name","external_urls.spotify":"artist_spotify_url"})
+        df_selected = df[["artist_rank","id","name","type","external_urls.spotify"]].rename(columns={"id":"artist_id","name":"artist_name","external_urls.spotify":"artist_spotify_url"})
 
         df_selected.to_csv("/opt/airflow/spotify/data/user_top_artists.csv", index=False, encoding="utf-8")
 
