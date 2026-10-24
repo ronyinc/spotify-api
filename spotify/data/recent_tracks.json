@@ -6,6 +6,277 @@
                 "artists": [
                     {
                         "external_urls": {
+                            "spotify": "https://open.spotify.com/artist/4YgUVg4p7xtMOrOS4GjiJZ"
+                        },
+                        "href": "https://api.spotify.com/v1/artists/4YgUVg4p7xtMOrOS4GjiJZ",
+                        "id": "4YgUVg4p7xtMOrOS4GjiJZ",
+                        "name": "Jatin-Lalit",
+                        "type": "artist",
+                        "uri": "spotify:artist:4YgUVg4p7xtMOrOS4GjiJZ"
+                    }
+                ],
+                "external_urls": {
+                    "spotify": "https://open.spotify.com/album/4f0ooiboxVpTb7Y1jI5WH8"
+                },
+                "href": "https://api.spotify.com/v1/albums/4f0ooiboxVpTb7Y1jI5WH8",
+                "id": "4f0ooiboxVpTb7Y1jI5WH8",
+                "images": [
+                    {
+                        "url": "https://i.scdn.co/image/ab67616d0000b2730f0e4b68ed5159c70422c18f",
+                        "width": 640,
+                        "height": 640
+                    },
+                    {
+                        "url": "https://i.scdn.co/image/ab67616d00001e020f0e4b68ed5159c70422c18f",
+                        "width": 300,
+                        "height": 300
+                    },
+                    {
+                        "url": "https://i.scdn.co/image/ab67616d000048510f0e4b68ed5159c70422c18f",
+                        "width": 64,
+                        "height": 64
+                    }
+                ],
+                "is_playable": true,
+                "name": "Yes Boss (Original Motion Picture Soundtrack)",
+                "release_date": "1999-06-18",
+                "release_date_precision": "day",
+                "total_tracks": 6,
+                "type": "album",
+                "uri": "spotify:album:4f0ooiboxVpTb7Y1jI5WH8"
+            },
+            "artists": [
+                {
+                    "external_urls": {
+                        "spotify": "https://open.spotify.com/artist/4K6blSRoklNdpw4mzLxwfn"
+                    },
+                    "href": "https://api.spotify.com/v1/artists/4K6blSRoklNdpw4mzLxwfn",
+                    "id": "4K6blSRoklNdpw4mzLxwfn",
+                    "name": "Kumar Sanu",
+                    "type": "artist",
+                    "uri": "spotify:artist:4K6blSRoklNdpw4mzLxwfn"
+                },
+                {
+                    "external_urls": {
+                        "spotify": "https://open.spotify.com/artist/3gBKY0y3dFFVRqicLnVZYz"
+                    },
+                    "href": "https://api.spotify.com/v1/artists/3gBKY0y3dFFVRqicLnVZYz",
+                    "id": "3gBKY0y3dFFVRqicLnVZYz",
+                    "name": "Alka Yagnik",
+                    "type": "artist",
+                    "uri": "spotify:artist:3gBKY0y3dFFVRqicLnVZYz"
+                }
+            ],
+            "disc_number": 1,
+            "duration_ms": 266066,
+            "explicit": false,
+            "external_ids": {
+                "isrc": "INV119900298"
+            },
+            "external_urls": {
+                "spotify": "https://open.spotify.com/track/5fq7CGNYZKJm38HbLwMg9h"
+            },
+            "href": "https://api.spotify.com/v1/tracks/5fq7CGNYZKJm38HbLwMg9h",
+            "id": "5fq7CGNYZKJm38HbLwMg9h",
+            "is_local": false,
+            "is_playable": true,
+            "name": "Ek Din Aap",
+            "track_number": 5,
+            "type": "track",
+            "uri": "spotify:track:5fq7CGNYZKJm38HbLwMg9h"
+        },
+        "played_at": "2026-10-23T03:58:54.403Z",
+        "context": {
+            "type": "playlist",
+            "uri": "spotify:playlist:3johWqED1hFaXaUvHpUNQU",
+            "href": "https://api.spotify.com/v1/playlists/3johWqED1hFaXaUvHpUNQU",
+            "external_urls": {
+                "spotify": "https://open.spotify.com/playlist/3johWqED1hFaXaUvHpUNQU"
+            }
+        }
+    },
+    {
+        "track": {
+            "album": {
+                "album_type": "album",
+                "artists": [
+                    {
+                        "external_urls": {
+                            "spotify": "https://open.spotify.com/artist/2JSYASbWU5Y0fVpts3Eq7g"
+                        },
+                        "href": "https://api.spotify.com/v1/artists/2JSYASbWU5Y0fVpts3Eq7g",
+                        "id": "2JSYASbWU5Y0fVpts3Eq7g",
+                        "name": "R. D. Burman",
+                        "type": "artist",
+                        "uri": "spotify:artist:2JSYASbWU5Y0fVpts3Eq7g"
+                    }
+                ],
+                "external_urls": {
+                    "spotify": "https://open.spotify.com/album/7yDr1qdkEKZPxxLo5tKpIg"
+                },
+                "href": "https://api.spotify.com/v1/albums/7yDr1qdkEKZPxxLo5tKpIg",
+                "id": "7yDr1qdkEKZPxxLo5tKpIg",
+                "images": [
+                    {
+                        "url": "https://i.scdn.co/image/ab67616d0000b2733f895fcf0d228708c2249f31",
+                        "width": 640,
+                        "height": 640
+                    },
+                    {
+                        "url": "https://i.scdn.co/image/ab67616d00001e023f895fcf0d228708c2249f31",
+                        "width": 300,
+                        "height": 300
+                    },
+                    {
+                        "url": "https://i.scdn.co/image/ab67616d000048513f895fcf0d228708c2249f31",
+                        "width": 64,
+                        "height": 64
+                    }
+                ],
+                "is_playable": true,
+                "name": "Padosan",
+                "release_date": "1968-01-01",
+                "release_date_precision": "day",
+                "total_tracks": 8,
+                "type": "album",
+                "uri": "spotify:album:7yDr1qdkEKZPxxLo5tKpIg"
+            },
+            "artists": [
+                {
+                    "external_urls": {
+                        "spotify": "https://open.spotify.com/artist/0GF4shudTAFv8ak9eWdd4Y"
+                    },
+                    "href": "https://api.spotify.com/v1/artists/0GF4shudTAFv8ak9eWdd4Y",
+                    "id": "0GF4shudTAFv8ak9eWdd4Y",
+                    "name": "Kishore Kumar",
+                    "type": "artist",
+                    "uri": "spotify:artist:0GF4shudTAFv8ak9eWdd4Y"
+                },
+                {
+                    "external_urls": {
+                        "spotify": "https://open.spotify.com/artist/2JSYASbWU5Y0fVpts3Eq7g"
+                    },
+                    "href": "https://api.spotify.com/v1/artists/2JSYASbWU5Y0fVpts3Eq7g",
+                    "id": "2JSYASbWU5Y0fVpts3Eq7g",
+                    "name": "R. D. Burman",
+                    "type": "artist",
+                    "uri": "spotify:artist:2JSYASbWU5Y0fVpts3Eq7g"
+                }
+            ],
+            "disc_number": 1,
+            "duration_ms": 172570,
+            "explicit": false,
+            "external_ids": {
+                "isrc": "INH100251240"
+            },
+            "external_urls": {
+                "spotify": "https://open.spotify.com/track/5ZMuv6ESQmOHfXrm8FFncr"
+            },
+            "href": "https://api.spotify.com/v1/tracks/5ZMuv6ESQmOHfXrm8FFncr",
+            "id": "5ZMuv6ESQmOHfXrm8FFncr",
+            "is_local": false,
+            "is_playable": true,
+            "name": "Mere Samnewali Khidki Mein",
+            "track_number": 1,
+            "type": "track",
+            "uri": "spotify:track:5ZMuv6ESQmOHfXrm8FFncr"
+        },
+        "played_at": "2026-10-23T03:54:14.474Z",
+        "context": null
+    },
+    {
+        "track": {
+            "album": {
+                "album_type": "album",
+                "artists": [
+                    {
+                        "external_urls": {
+                            "spotify": "https://open.spotify.com/artist/02Um2HIOrUdsy3wqPBZwsj"
+                        },
+                        "href": "https://api.spotify.com/v1/artists/02Um2HIOrUdsy3wqPBZwsj",
+                        "id": "02Um2HIOrUdsy3wqPBZwsj",
+                        "name": "Hemant Kumar",
+                        "type": "artist",
+                        "uri": "spotify:artist:02Um2HIOrUdsy3wqPBZwsj"
+                    }
+                ],
+                "external_urls": {
+                    "spotify": "https://open.spotify.com/album/2YClj18H0MtjOGWwqII1sh"
+                },
+                "href": "https://api.spotify.com/v1/albums/2YClj18H0MtjOGWwqII1sh",
+                "id": "2YClj18H0MtjOGWwqII1sh",
+                "images": [
+                    {
+                        "url": "https://i.scdn.co/image/ab67616d0000b27303d5016697846304152cd126",
+                        "width": 640,
+                        "height": 640
+                    },
+                    {
+                        "url": "https://i.scdn.co/image/ab67616d00001e0203d5016697846304152cd126",
+                        "width": 300,
+                        "height": 300
+                    },
+                    {
+                        "url": "https://i.scdn.co/image/ab67616d0000485103d5016697846304152cd126",
+                        "width": 64,
+                        "height": 64
+                    }
+                ],
+                "is_playable": true,
+                "name": "Baarishein, Chai Aur Hemant Kumar",
+                "release_date": "2023-07-12",
+                "release_date_precision": "day",
+                "total_tracks": 15,
+                "type": "album",
+                "uri": "spotify:album:2YClj18H0MtjOGWwqII1sh"
+            },
+            "artists": [
+                {
+                    "external_urls": {
+                        "spotify": "https://open.spotify.com/artist/02Um2HIOrUdsy3wqPBZwsj"
+                    },
+                    "href": "https://api.spotify.com/v1/artists/02Um2HIOrUdsy3wqPBZwsj",
+                    "id": "02Um2HIOrUdsy3wqPBZwsj",
+                    "name": "Hemant Kumar",
+                    "type": "artist",
+                    "uri": "spotify:artist:02Um2HIOrUdsy3wqPBZwsj"
+                }
+            ],
+            "disc_number": 1,
+            "duration_ms": 261825,
+            "explicit": false,
+            "external_ids": {
+                "isrc": "INH109245370"
+            },
+            "external_urls": {
+                "spotify": "https://open.spotify.com/track/5LrCiTYu4iTjgUXM758Igj"
+            },
+            "href": "https://api.spotify.com/v1/tracks/5LrCiTYu4iTjgUXM758Igj",
+            "id": "5LrCiTYu4iTjgUXM758Igj",
+            "is_local": false,
+            "is_playable": true,
+            "name": "Hai Apna Dil To Aawara (Happy)",
+            "track_number": 2,
+            "type": "track",
+            "uri": "spotify:track:5LrCiTYu4iTjgUXM758Igj"
+        },
+        "played_at": "2026-10-22T02:41:56.454Z",
+        "context": {
+            "type": "playlist",
+            "uri": "spotify:playlist:3johWqED1hFaXaUvHpUNQU",
+            "href": "https://api.spotify.com/v1/playlists/3johWqED1hFaXaUvHpUNQU",
+            "external_urls": {
+                "spotify": "https://open.spotify.com/playlist/3johWqED1hFaXaUvHpUNQU"
+            }
+        }
+    },
+    {
+        "track": {
+            "album": {
+                "album_type": "album",
+                "artists": [
+                    {
+                        "external_urls": {
                             "spotify": "https://open.spotify.com/artist/0GF4shudTAFv8ak9eWdd4Y"
                         },
                         "href": "https://api.spotify.com/v1/artists/0GF4shudTAFv8ak9eWdd4Y",
@@ -4461,257 +4732,6 @@
             "href": "https://api.spotify.com/v1/playlists/1P27ra5VqAizmkcUzVAvp2",
             "external_urls": {
                 "spotify": "https://open.spotify.com/playlist/1P27ra5VqAizmkcUzVAvp2"
-            }
-        }
-    },
-    {
-        "track": {
-            "album": {
-                "album_type": "album",
-                "artists": [
-                    {
-                        "external_urls": {
-                            "spotify": "https://open.spotify.com/artist/6YYk2yfx7jUHLfI5W1sgNi"
-                        },
-                        "href": "https://api.spotify.com/v1/artists/6YYk2yfx7jUHLfI5W1sgNi",
-                        "id": "6YYk2yfx7jUHLfI5W1sgNi",
-                        "name": "Michael Mitchell",
-                        "type": "artist",
-                        "uri": "spotify:artist:6YYk2yfx7jUHLfI5W1sgNi"
-                    }
-                ],
-                "external_urls": {
-                    "spotify": "https://open.spotify.com/album/4Mubv0mUCqVm8dNcSmvjQo"
-                },
-                "href": "https://api.spotify.com/v1/albums/4Mubv0mUCqVm8dNcSmvjQo",
-                "id": "4Mubv0mUCqVm8dNcSmvjQo",
-                "images": [
-                    {
-                        "url": "https://i.scdn.co/image/ab67616d0000b2736c466638f31d09272d1a4ae5",
-                        "width": 640,
-                        "height": 640
-                    },
-                    {
-                        "url": "https://i.scdn.co/image/ab67616d00001e026c466638f31d09272d1a4ae5",
-                        "width": 300,
-                        "height": 300
-                    },
-                    {
-                        "url": "https://i.scdn.co/image/ab67616d000048516c466638f31d09272d1a4ae5",
-                        "width": 64,
-                        "height": 64
-                    }
-                ],
-                "is_playable": true,
-                "name": "Canada Is For Kids Volume 1",
-                "release_date": "2006-10-24",
-                "release_date_precision": "day",
-                "total_tracks": 14,
-                "type": "album",
-                "uri": "spotify:album:4Mubv0mUCqVm8dNcSmvjQo"
-            },
-            "artists": [
-                {
-                    "external_urls": {
-                        "spotify": "https://open.spotify.com/artist/6YYk2yfx7jUHLfI5W1sgNi"
-                    },
-                    "href": "https://api.spotify.com/v1/artists/6YYk2yfx7jUHLfI5W1sgNi",
-                    "id": "6YYk2yfx7jUHLfI5W1sgNi",
-                    "name": "Michael Mitchell",
-                    "type": "artist",
-                    "uri": "spotify:artist:6YYk2yfx7jUHLfI5W1sgNi"
-                }
-            ],
-            "disc_number": 1,
-            "duration_ms": 217693,
-            "explicit": false,
-            "external_ids": {
-                "isrc": "CAI370613113"
-            },
-            "external_urls": {
-                "spotify": "https://open.spotify.com/track/40coahAwVxUwJy2ckCvOKR"
-            },
-            "href": "https://api.spotify.com/v1/tracks/40coahAwVxUwJy2ckCvOKR",
-            "id": "40coahAwVxUwJy2ckCvOKR",
-            "is_local": false,
-            "is_playable": true,
-            "name": "Canada in My Pocket",
-            "track_number": 7,
-            "type": "track",
-            "uri": "spotify:track:40coahAwVxUwJy2ckCvOKR"
-        },
-        "played_at": "2026-10-17T23:33:12.053Z",
-        "context": null
-    },
-    {
-        "track": {
-            "album": {
-                "album_type": "single",
-                "artists": [
-                    {
-                        "external_urls": {
-                            "spotify": "https://open.spotify.com/artist/6kClxEibflIbA231B95OYX"
-                        },
-                        "href": "https://api.spotify.com/v1/artists/6kClxEibflIbA231B95OYX",
-                        "id": "6kClxEibflIbA231B95OYX",
-                        "name": "Danish National Symphony Orchestra",
-                        "type": "artist",
-                        "uri": "spotify:artist:6kClxEibflIbA231B95OYX"
-                    }
-                ],
-                "external_urls": {
-                    "spotify": "https://open.spotify.com/album/6A61UZ2F4P2UXJB5xKUElg"
-                },
-                "href": "https://api.spotify.com/v1/albums/6A61UZ2F4P2UXJB5xKUElg",
-                "id": "6A61UZ2F4P2UXJB5xKUElg",
-                "images": [
-                    {
-                        "url": "https://i.scdn.co/image/ab67616d0000b2730256d8f55c68a2bcc7ea53bd",
-                        "width": 640,
-                        "height": 640
-                    },
-                    {
-                        "url": "https://i.scdn.co/image/ab67616d00001e020256d8f55c68a2bcc7ea53bd",
-                        "width": 300,
-                        "height": 300
-                    },
-                    {
-                        "url": "https://i.scdn.co/image/ab67616d000048510256d8f55c68a2bcc7ea53bd",
-                        "width": 64,
-                        "height": 64
-                    }
-                ],
-                "is_playable": true,
-                "name": "Workout - Powerful Film Music for Running",
-                "release_date": "2024-04-26",
-                "release_date_precision": "day",
-                "total_tracks": 6,
-                "type": "album",
-                "uri": "spotify:album:6A61UZ2F4P2UXJB5xKUElg"
-            },
-            "artists": [
-                {
-                    "external_urls": {
-                        "spotify": "https://open.spotify.com/artist/6kClxEibflIbA231B95OYX"
-                    },
-                    "href": "https://api.spotify.com/v1/artists/6kClxEibflIbA231B95OYX",
-                    "id": "6kClxEibflIbA231B95OYX",
-                    "name": "Danish National Symphony Orchestra",
-                    "type": "artist",
-                    "uri": "spotify:artist:6kClxEibflIbA231B95OYX"
-                }
-            ],
-            "disc_number": 1,
-            "duration_ms": 328339,
-            "explicit": false,
-            "external_ids": {
-                "isrc": "DEU901501583"
-            },
-            "external_urls": {
-                "spotify": "https://open.spotify.com/track/7JZQSxkc0LLh7cahIvDKIy"
-            },
-            "href": "https://api.spotify.com/v1/tracks/7JZQSxkc0LLh7cahIvDKIy",
-            "id": "7JZQSxkc0LLh7cahIvDKIy",
-            "is_local": false,
-            "is_playable": true,
-            "name": "Stand Up (From \"Harriet\")",
-            "track_number": 6,
-            "type": "track",
-            "uri": "spotify:track:7JZQSxkc0LLh7cahIvDKIy"
-        },
-        "played_at": "2026-10-17T22:24:15.305Z",
-        "context": {
-            "type": "playlist",
-            "uri": "spotify:playlist:4HXoBvz8gOgmo72YscAcBV",
-            "href": "https://api.spotify.com/v1/playlists/4HXoBvz8gOgmo72YscAcBV",
-            "external_urls": {
-                "spotify": "https://open.spotify.com/playlist/4HXoBvz8gOgmo72YscAcBV"
-            }
-        }
-    },
-    {
-        "track": {
-            "album": {
-                "album_type": "album",
-                "artists": [
-                    {
-                        "external_urls": {
-                            "spotify": "https://open.spotify.com/artist/1g1yxsNVPhMUl9GrMjEb2o"
-                        },
-                        "href": "https://api.spotify.com/v1/artists/1g1yxsNVPhMUl9GrMjEb2o",
-                        "id": "1g1yxsNVPhMUl9GrMjEb2o",
-                        "name": "Plain White T's",
-                        "type": "artist",
-                        "uri": "spotify:artist:1g1yxsNVPhMUl9GrMjEb2o"
-                    }
-                ],
-                "external_urls": {
-                    "spotify": "https://open.spotify.com/album/4vUClKTFaDWnsHE8rK52GY"
-                },
-                "href": "https://api.spotify.com/v1/albums/4vUClKTFaDWnsHE8rK52GY",
-                "id": "4vUClKTFaDWnsHE8rK52GY",
-                "images": [
-                    {
-                        "url": "https://i.scdn.co/image/ab67616d0000b273beae6e69d6505fd379ef3081",
-                        "width": 640,
-                        "height": 640
-                    },
-                    {
-                        "url": "https://i.scdn.co/image/ab67616d00001e02beae6e69d6505fd379ef3081",
-                        "width": 300,
-                        "height": 300
-                    },
-                    {
-                        "url": "https://i.scdn.co/image/ab67616d00004851beae6e69d6505fd379ef3081",
-                        "width": 64,
-                        "height": 64
-                    }
-                ],
-                "is_playable": true,
-                "name": "All That We Needed",
-                "release_date": "2005-01-25",
-                "release_date_precision": "day",
-                "total_tracks": 13,
-                "type": "album",
-                "uri": "spotify:album:4vUClKTFaDWnsHE8rK52GY"
-            },
-            "artists": [
-                {
-                    "external_urls": {
-                        "spotify": "https://open.spotify.com/artist/1g1yxsNVPhMUl9GrMjEb2o"
-                    },
-                    "href": "https://api.spotify.com/v1/artists/1g1yxsNVPhMUl9GrMjEb2o",
-                    "id": "1g1yxsNVPhMUl9GrMjEb2o",
-                    "name": "Plain White T's",
-                    "type": "artist",
-                    "uri": "spotify:artist:1g1yxsNVPhMUl9GrMjEb2o"
-                }
-            ],
-            "disc_number": 1,
-            "duration_ms": 232533,
-            "explicit": false,
-            "external_ids": {
-                "isrc": "US5260507213"
-            },
-            "external_urls": {
-                "spotify": "https://open.spotify.com/track/4RCWB3V8V0dignt99LZ8vH"
-            },
-            "href": "https://api.spotify.com/v1/tracks/4RCWB3V8V0dignt99LZ8vH",
-            "id": "4RCWB3V8V0dignt99LZ8vH",
-            "is_local": false,
-            "is_playable": true,
-            "name": "Hey There Delilah",
-            "track_number": 13,
-            "type": "track",
-            "uri": "spotify:track:4RCWB3V8V0dignt99LZ8vH"
-        },
-        "played_at": "2026-10-17T21:24:06.280Z",
-        "context": {
-            "type": "playlist",
-            "uri": "spotify:playlist:4HXoBvz8gOgmo72YscAcBV",
-            "href": "https://api.spotify.com/v1/playlists/4HXoBvz8gOgmo72YscAcBV",
-            "external_urls": {
-                "spotify": "https://open.spotify.com/playlist/4HXoBvz8gOgmo72YscAcBV"
             }
         }
     }

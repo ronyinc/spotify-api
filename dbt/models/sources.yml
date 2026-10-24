@@ -105,7 +105,7 @@ sources:
           - name: artist_id
             data_type: varchar
           - name: artist_rank
-            data_type: varchar  
+            data_type: int  
           - name: artist_name
             data_type: varchar  
           - name: type

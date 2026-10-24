@@ -1,0 +1,10 @@
+
+snapshots:
+  - name: int_user_playlist_snapshot
+    relation: ref('int_user_playlist')
+
+    config: 
+      unique_key: playlist_id
+      strategy: check
+      check_cols: all
+      hard_deletes: invalidate
