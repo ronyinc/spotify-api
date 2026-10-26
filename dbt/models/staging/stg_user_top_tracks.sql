@@ -2,6 +2,7 @@
 select 
         track_id
        ,track_name
+       ,track_rank
        ,type
        ,track_number
        ,duration_ms

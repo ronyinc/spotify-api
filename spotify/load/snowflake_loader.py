@@ -384,9 +384,10 @@ def user_top_tracks_load_to_snowflake():
     try:
         
         cursor.execute("""
-                CREATE TEMPORARY TABLE IF NOT EXISTS RAW.SPOTIFY_SCHEMA.USER_TOP_TRACKS_TMP (
+                CREATE TABLE IF NOT EXISTS RAW.SPOTIFY_SCHEMA.USER_TOP_TRACKS (
                        TRACK_ID VARCHAR,
                        TRACK_NAME VARCHAR,
+                       TRACK_RANK VARCHAR,
                        TYPE VARCHAR,
                        TRACK_NUMBER VARCHAR,
                        DURATION_MS NUMERIC,
@@ -404,67 +405,15 @@ def user_top_tracks_load_to_snowflake():
         success, num_chunks, num_rows, _ =  write_pandas(
             conn, 
             df,
-            table_name = "USER_TOP_TRACKS_TMP",
+            table_name = "USER_TOP_TRACKS",
             schema = "SPOTIFY_SCHEMA",
             database = "RAW", 
             overwrite=True,
             use_logical_type=True
         )
         
-        print(f"Successfully loaded {num_rows} into the tmp table - RAW.SPOTIFY_SCHEMA.USER_TOP_TRACKS_TMP ")
+        print(f"Successfully loaded {num_rows} into the tmp table - RAW.SPOTIFY_SCHEMA.USER_TOP_TRACKS")
         print("\n")
-
-
-        insert_sql = f"""
-        INSERT INTO RAW.SPOTIFY_SCHEMA.USER_TOP_TRACKS (
-                TRACK_ID, TRACK_NAME, TYPE, TRACK_NUMBER, DURATION_MS, ARTIST_NAME, ALBUM_TYPE, ALBUM_NAME, ALBUM_RELEASE_DATE, ALBUM_TOTAL_TRACKS, 
-                LOADED_AT, LOADED_AT_YEAR, LOADED_AT_MONTH  
-         )
-         SELECT
-                tmp.TRACK_ID, tmp.TRACK_NAME, tmp.TYPE, tmp.TRACK_NUMBER, tmp.DURATION_MS, tmp.ARTIST_NAME, tmp.ALBUM_TYPE, tmp.ALBUM_NAME, 
-                tmp.ALBUM_RELEASE_DATE, tmp.ALBUM_TOTAL_TRACKS, tmp.LOADED_AT, tmp.LOADED_AT_YEAR, tmp.LOADED_AT_MONTH
-         FROM 
-                 RAW.SPOTIFY_SCHEMA.USER_TOP_TRACKS_TMP tmp
-         LEFT JOIN 
-                    RAW.SPOTIFY_SCHEMA.USER_TOP_TRACKS trg
-         ON tmp.TRACK_ID = trg.TRACK_ID
-         WHERE trg.TRACK_ID IS NULL;           
-        """
-        cursor.execute(insert_sql)
-        print(f"Inserted {cursor.rowcount} rows")
-
-        update_sql = f"""
-        UPDATE RAW.SPOTIFY_SCHEMA.USER_TOP_TRACKS as trg
-        SET
-            TRACK_NAME = tmp.TRACK_NAME,
-            TYPE = tmp.TYPE,
-            TRACK_NUMBER = tmp.TRACK_NUMBER,
-            DURATION_MS = tmp.DURATION_MS,
-            ARTIST_NAME = tmp.ARTIST_NAME,
-            ALBUM_TYPE = tmp.ALBUM_TYPE,
-            ALBUM_NAME = tmp.ALBUM_NAME,
-            ALBUM_RELEASE_DATE = tmp.ALBUM_RELEASE_DATE,
-            ALBUM_TOTAL_TRACKS = tmp.ALBUM_TOTAL_TRACKS,
-            LOADED_AT = tmp.LOADED_AT,
-            LOADED_AT_YEAR = tmp.LOADED_AT_YEAR,
-            LOADED_AT_MONTH = tmp.LOADED_AT_MONTH
-        FROM 
-             RAW.SPOTIFY_SCHEMA.USER_TOP_TRACKS_TMP tmp
-        WHERE trg.TRACK_ID = tmp.TRACK_ID
-        AND (
-               trg.TRACK_NAME IS DISTINCT FROM tmp.TRACK_NAME OR
-               trg.TYPE IS DISTINCT FROM tmp.TYPE OR
-               trg.TRACK_NUMBER IS DISTINCT FROM tmp.TRACK_NUMBER OR
-               trg.DURATION_MS IS DISTINCT FROM tmp.DURATION_MS OR
-               trg.ARTIST_NAME IS DISTINCT FROM tmp.ARTIST_NAME OR
-               trg.ALBUM_TYPE IS DISTINCT FROM tmp.ALBUM_TYPE OR
-               trg.ALBUM_NAME IS DISTINCT FROM tmp.ALBUM_NAME OR
-               trg.ALBUM_RELEASE_DATE IS DISTINCT FROM tmp.ALBUM_RELEASE_DATE OR
-               trg.ALBUM_TOTAL_TRACKS IS DISTINCT FROM tmp.ALBUM_TOTAL_TRACKS
-        )        
-        """
-        cursor.execute(update_sql)
-        print(f"Updated {cursor.rowcount} changed rows")
 
         conn.commit()
 
