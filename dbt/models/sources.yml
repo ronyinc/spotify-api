@@ -160,6 +160,8 @@ sources:
         columns:
           - name: track_id
             data_type: varchar
+          - name: track_rank
+            data_type: int    
           - name: track_name
             data_type: varchar  
           - name: type

@@ -162,6 +162,9 @@ def get_users_top_tracks(access_token, param):
             url = data["next"]
             params = None
 
+        for rank, track in enumerate(top_artists_tracks, start=1):
+            track["track_rank"] = rank
+
         return top_artists_tracks
         
     except requests.exceptions.RequestException as e:
