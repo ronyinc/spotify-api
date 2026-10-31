@@ -19,10 +19,11 @@ select   distinct
         ,item_album_name
         ,item_album_release_date
         ,item_duration_ms
+        ,loaded_at
 
 from 
      {{ ref('stg_user_playlist_items') }}
-     
+
 {% if is_incremental() %}
 
 where loaded_at >= (
