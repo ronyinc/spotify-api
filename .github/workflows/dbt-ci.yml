@@ -72,7 +72,7 @@ jobs:
       - name: Show modified nodes on the ci 
         working-directory: ./dbt
         run: |
-          dbt ls --state ./state --select state:modified+ --target ci
+          dbt ls --state ./state --select state:modified --target ci
 
       # ----- the slim build --------- (modified + downstream)
 
