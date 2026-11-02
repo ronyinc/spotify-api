@@ -64,15 +64,24 @@ jobs:
         run: |
           git checkout main
           dbt deps
+
+          # CI manifest for state  comparison
+
+          dbt parse --target ci
+          mkdir -p ci-state
+          cp target/manifest.json ci-state/manifest.json
+
+          # Production manifest for deferred refrences
           dbt parse --target prod
-          mkdir -p state
-          cp target/manifest.json state/manifest.json
+          mkdir -p prod-state
+          cp target/manifest.json prod-state/manifest.json
+
           git checkout -
 
       - name: Show modified nodes on the ci 
         working-directory: ./dbt
         run: |
-          dbt ls --state ./state --select state:modified+ --target ci
+          dbt ls --state ./ci-state --select state:modified --target ci
 
       # ----- the slim build --------- (modified + downstream)
 
@@ -81,7 +90,8 @@ jobs:
         run: |
           dbt build \
             --target ci \
-            --state ./state \
+            --state ./ci-state \
             --defer \
+            --defer-state ./prod-state \
             --select "state:modified+"                     
 
