@@ -6,7 +6,7 @@
     )
 }}
 
- -- testing chamges 01 
+ -- testing changes 02 - snowflake role changes.  
 
 select   distinct 
          playlist_item_key
