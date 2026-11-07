@@ -40,7 +40,7 @@ models:
       +materialized: view
       +schema: intermediate
 
-    marts:
+    analysis:
       +materialized: table
       +tags: ['report']
       +schema: marts
